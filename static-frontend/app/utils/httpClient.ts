@@ -6,19 +6,21 @@ const BASE_URL = 'https://api.backpack.exchange/api/v1'
 
 
 export const getTicker = async(market:string):Promise<Ticker> => {
+    console.log('ticker')
     const response = await axios.get(`${BASE_URL}/tickers`)
+    console.log('ticker: '+ response.data)
     return response.data
     
 }
 
-export const getDepth = async (market:string):Promise<Depth[]> => {
+export const getDepth = async (market:string):Promise<Depth> => {
     const response = await axios.get(`${BASE_URL}/depth?symbol=${market}`)
     return response.data
 
 }
 
-export const getKlines = async (market:string,interval:string,time:string):Promise<Klines[]> => {
-    const response = await axios.get(`${BASE_URL}/klines?symbol=${market}&interval=${interval}m&startTime=${time}`) 
+export const getKlines = async (market:string,interval:string,startTime:number,endTime:number):Promise<Klines[]> => {
+    const response = await axios.get(`${BASE_URL}/klines?symbol=${market}&interval=${interval}m&startTime=${startTime}&endTime=${endTime}`) 
     return response.data
 }
 

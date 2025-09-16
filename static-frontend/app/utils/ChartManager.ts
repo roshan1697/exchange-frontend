@@ -73,7 +73,11 @@ export class ChartManager {
             high:updatePrice.high,
             open:updatePrice.open
         })
-
+        if(updatePrice.newCandleInitiated){
+            this.lastUpdateTime = updatePrice.time
+        }
     }
-
+    public destroy = () =>{
+        this.chart.remove()
+    }
 }
