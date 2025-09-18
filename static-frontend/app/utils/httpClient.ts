@@ -1,15 +1,21 @@
-import axios from "axios";
+import axios, { all } from "axios";
 import { Depth, Klines, Ticker, Trades } from "./types";
+import { error } from "console";
 
 
 const BASE_URL = 'https://api.backpack.exchange/api/v1'
 
 
 export const getTicker = async(market:string):Promise<Ticker> => {
-    console.log('ticker')
-    const response = await axios.get(`${BASE_URL}/tickers`)
-    console.log('ticker: '+ response.data)
-    return response.data
+    
+    // const response = await axios.get(`${BASE_URL}/tickers`)
+    const response = await axios.get('http://localhost:8080/')
+    const allTicker = JSON.parse(response.data)
+    const ticker = allTicker.find(d=>d.symbol === market)
+    if(!ticker){
+        throw new Error(`market not found for ${market}`)
+    }
+    return ticker
     
 }
 
