@@ -13,6 +13,7 @@ const TradeView = ({ market }: { market: string }) => {
         let klineData: Klines[] = []
         try {
             klineData = await getKlines(market, '1h', Math.floor((new Date().getTime() - 1000 * 60 * 60 * 24 * 7) / 1000), Math.floor(new Date().getTime() / 1000))
+            
         } catch (e) { }
         if (chartRef) {
             if (chartManagerRef.current) {
@@ -30,7 +31,7 @@ const TradeView = ({ market }: { market: string }) => {
                     }))
                 ].sort((x, y) => (x.timestamp < y.timestamp ? -1 : 1)) || [],
                 {
-                    bacground: '#0e0f14',
+                    background: '#0e0f14',
                     color: 'white'
                 }
             )

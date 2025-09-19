@@ -14,6 +14,7 @@ const Depth = ({ market }: { market: string }) => {
         getDepth(market).then(d => {
             setBids(d.bids.reverse())
             setAsks(d.asks)
+            
         })
         getTicker(market).then(t => setPrice(t.lastPrice))
     }, [])

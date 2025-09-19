@@ -19,7 +19,7 @@ export class ChartManager {
     constructor(
         ref:any,
         initialData:any[],
-        layout:{bacground:string,color:string}
+        layout:{background:string,color:string}
     ){
         const chart = createChart(ref,{
             autoSize:true,
@@ -47,7 +47,7 @@ export class ChartManager {
             layout: {
                 background:{
                     type:ColorType.Solid,
-                    color:layout.bacground,
+                    color:layout.background,
                 },
                 textColor:'white',
             },

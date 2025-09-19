@@ -6,7 +6,7 @@ const request = require('request');
 
 
 // Replace this with the target server URL
-const targetUrl = 'https://api.backpack.exchange/api/v1';
+const targetUrl = 'https://api.backpack.exchange/api/v1/';
 
 // Handle CORS
 app.use((req, res, next) => {
@@ -29,19 +29,37 @@ app.use((req, res, next) => {
 //     }
 // }));
 
-app.get('/:path', (req, res) => {
-    const path = req.params.path
-    request(
-        { url:targetUrl + path },
-        (error, response, body) => {
-            if (error || response.statusCode !== 200) {
-                return res.status(500).json({ type: 'error', message: err.message });
-            }
-            
-            
-            res.json(body);
+app.get(new RegExp('.*'), (req, res) => {
+    const path = req.originalUrl.substring(1)
+    const fullPath = targetUrl + req.originalUrl.substring(1)
+    try {
+
+        request(
+            { url:fullPath },
+            (error, response, body) => {
+                // if (error || response.statusCode !== 200) {
+                //     return res.status(500).json({ type: 'error', message: error.message });
+                // }
+                if (error) {
+            // A network or other request-related error occurred
+            return res.status(500).json({ type: 'error', message: error.message });
         }
-    )
+        
+        if (response.statusCode !== 200) {
+            // A non-200 HTTP status code was received
+            return res.status(response.statusCode).json({ 
+                type: 'error', 
+                message: `API responded with status code: ${response.statusCode}` 
+            });
+        }
+                
+                
+                res.json(body);
+            }
+        )
+    }catch(e){
+        console.log(e)
+    }
 });
 
 
