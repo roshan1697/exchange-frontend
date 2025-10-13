@@ -1,6 +1,5 @@
 import axios, { all } from "axios";
 import { Depth, KLine, Ticker, Trade } from "./types";
-import { error } from "console";
 
 
 const BASE_URL = 'http://localhost:8080'
