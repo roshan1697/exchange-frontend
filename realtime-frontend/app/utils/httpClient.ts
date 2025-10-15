@@ -29,8 +29,8 @@ export const getKlines = async (market:string,interval:string,startTime:number,e
     return JSON.parse(response.data)
 }
 
-export const getTrades = async (market:string,limit:string):Promise<Trade[]> => {
-    const response = await axios.get(`${BASE_URL}/trades?symbol=${market}&limit=${limit}`)
+export const getTrades = async (market:string):Promise<Trade[]> => {
+    const response = await axios.get(`${BASE_URL}/trades?symbol=${market}`)
     return JSON.parse(response.data)
 }
 
