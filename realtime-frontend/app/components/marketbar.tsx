@@ -21,13 +21,15 @@ const MarketBar = ({ market }: { market: string }) => {
             trades: data.trades ?? prevTicker?.trades ?? '',
             volume: data.volume ?? prevTicker?.volume ?? ''
         })), `TICKER-${market}`)
-        WSClient.getInstance().sendMessage({ "method": "SUBSCRIBE", "params": [`ticker.${market}`] });
+        WSClient.getInstance().sendMessage({ "method": "SUBSCRIBE", "params": [`bookTicker.${market}`] });
 
         return () => {
             WSClient.getInstance().deregisterCallback('depth', `DEPTH-${market}`)
             WSClient.getInstance().sendMessage({ "method": "UNSUBSCRIBE", "params": [`ticker.${market}`] });
         }
     }, [market])
+
+    console.log(`ticker:${ticker}`)
     return (
         <div>
             <div className="flex items-center flex-row relative w-full overflow-hidden border-b border-slate-800">

@@ -26,7 +26,7 @@ export const getDepth = async (market:string):Promise<Depth> => {
 
 export const getKlines = async (market:string,interval:string,startTime:number,endTime:number):Promise<KLine[]> => {
     const response = await axios.get(`${BASE_URL}/klines?symbol=${market}&interval=${interval}&startTime=${startTime}&endTime=${endTime}`) 
-    return JSON.parse(response.data)
+        return JSON.parse(response.data)
 }
 
 export const getTrades = async (market:string):Promise<Trade[]> => {

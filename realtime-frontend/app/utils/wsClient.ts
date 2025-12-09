@@ -13,6 +13,7 @@ export class WSClient {
     private constructor(){
         this.ws = new WebSocket(BASEURL)
         this.id = 1
+        this.init()
 
     }
 
@@ -27,13 +28,14 @@ export class WSClient {
         this.ws.onopen = ()=>{
             this.initialized = true
             this.bufferedMessages.forEach((message)=>{
-                this.ws.send(message)
+                this.ws.send(JSON.stringify(message))
             })
             this.bufferedMessages = []
         }
         this.ws.onmessage = (event)=>{
             const message = JSON.parse(event.data)
             const type = event.data.e
+            console.log(`message: ${message}`)
             if(this.callbacks[type]){
                 this.callbacks[type].forEach(({callback})=>{
                     if(type === 'ticker'){
@@ -75,6 +77,7 @@ export class WSClient {
             ...message,
             id:this.id++
         }
+        console.log(`sendmessage: ${this.initialized}`)
         if(!this.initialized){
             this.bufferedMessages.push(message)
             return

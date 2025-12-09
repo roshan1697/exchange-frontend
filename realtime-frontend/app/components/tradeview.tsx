@@ -14,7 +14,7 @@ const TradeView = ({ market }: { market: string }) => {
         const init = async () => {
             let klinedata: KLine[] = []
             try {
-                klinedata = await getKlines(market, '1hr', Math.floor((new Date().getTime() - 1000 * 60 * 60 * 24 * 7) / 1000), Math.floor(new Date().getTime() / 1000))
+                klinedata = await getKlines(market, '1h', Math.floor((new Date().getTime() - 1000 * 60 * 60 * 24 * 7) / 1000), Math.floor(new Date().getTime() / 1000))
             } catch (e) {
 
             }

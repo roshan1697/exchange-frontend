@@ -53,7 +53,6 @@ app.get(new RegExp('.*'), (req, res) => {
             });
         }
                 
-                
                 res.json(body);
             }
         )
