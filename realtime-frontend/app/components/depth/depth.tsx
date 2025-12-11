@@ -83,7 +83,7 @@ const Depth = ({ market }: { market: string }) => {
 
         }, `DEPTH-${market}`)
 
-        WSClient.getInstance().sendMessage({'method':'SUBSCRIBE','params':[`depth.${market}`]})
+        // WSClient.getInstance().sendMessage({'method':'SUBSCRIBE','params':[`depth.${market}`]})
         getDepth(market).then(d=>{
             setBids(d.bids.reverse())
             setAsks(d.asks)

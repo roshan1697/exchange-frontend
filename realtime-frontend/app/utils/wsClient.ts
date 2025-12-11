@@ -34,10 +34,10 @@ export class WSClient {
         }
         this.ws.onmessage = (event)=>{
             const message = JSON.parse(event.data)
-            const type = event.data.e
-            console.log(`message: ${message}`)
+            const type = message.data.e
             if(this.callbacks[type]){
                 this.callbacks[type].forEach(({callback})=>{
+                    
                     if(type === 'ticker'){
                         const newTicker:Partial<Ticker> = {
                             
@@ -48,6 +48,7 @@ export class WSClient {
                             quoteVolume: message.data.V,
                             symbol: message.data.s,
                         }
+                        
                         callback(newTicker)
                     }
                     if(type === 'depth'){
@@ -77,7 +78,6 @@ export class WSClient {
             ...message,
             id:this.id++
         }
-        console.log(`sendmessage: ${this.initialized}`)
         if(!this.initialized){
             this.bufferedMessages.push(message)
             return
@@ -87,6 +87,7 @@ export class WSClient {
     registerCallback = async(type:string, callback:any, id:string) => {
         this.callbacks[type] = this.callbacks[type] || []
         this.callbacks[type].push({callback ,id})
+        
     }
     deregisterCallback = async(type:string,id:string) =>{
         if(this.callbacks[type]){
